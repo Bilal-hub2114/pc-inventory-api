@@ -20,4 +20,13 @@ public class ProductController {
     public List<Product> getAllProducts(){
         return productRepository.findAll();
     }
+    @GetMapping("/{id}")
+    public Product getProductById(@PathVariable int id){
+        return productRepository.findById(id).orElse(null);
+    }
+    @DeleteMapping("/{id}")
+    public String deleteProductById(@PathVariable int id){
+        productRepository.deleteById(id);
+        return id + " numarali urun Moonİnventory stoklarindan basariyla silindi";
+    }
 }
