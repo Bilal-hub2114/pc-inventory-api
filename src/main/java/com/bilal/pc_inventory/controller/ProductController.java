@@ -1,6 +1,7 @@
 package com.bilal.pc_inventory.controller;
+
 import com.bilal.pc_inventory.entity.Product;
-import com.bilal.pc_inventory.repository.ProductRepository;
+import com.bilal.pc_inventory.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -8,35 +9,35 @@ import java.util.List;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    private final ProductRepository productRepository;
-    public ProductController(ProductRepository productRepository){
-        this.productRepository = productRepository;
+    private final ProductService productService;
+
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
     }
+
     @PostMapping
-    public Product addProduct(@RequestBody Product product){
-        return productRepository.save(product);
+    public Product addProduct(@RequestBody Product product) {
+        return productService.addProduct(product);
     }
+
     @GetMapping
-    public List<Product> getAllProducts(){
-        return productRepository.findAll();
+    public List<Product> getAllProducts() {
+        return productService.getAllProducts();
     }
+
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable int id){
-        return productRepository.findById(id).orElse(null);
+    public Product getProductById(@PathVariable int id) {
+        return productService.getProductById(id);
     }
-    @DeleteMapping("/{id}")
-    public String deleteProductById(@PathVariable int id){
-        productRepository.deleteById(id);
-        return id + " numarali urun Moonİnventory stoklarindan basariyla silindi";
-    }
+
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestBody Product updatedProduct){
-        return productRepository.findById(id).map(existingProduct ->{
-            existingProduct.setName(updatedProduct.getName());
-            existingProduct.setCategory(updatedProduct.getCategory());
-            existingProduct.setPrice(updatedProduct.getPrice());
-            existingProduct.setStockQuantity(updatedProduct.getStockQuantity());
-            return productRepository.save(existingProduct);
-        }).orElse(null);
+    public Product updateProduct(@PathVariable int id, @RequestBody Product product) {
+        return productService.updateProduct(id, product);
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable int id) {
+        return productService.deleteProduct(id);
     }
 }
