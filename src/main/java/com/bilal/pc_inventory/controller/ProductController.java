@@ -29,4 +29,14 @@ public class ProductController {
         productRepository.deleteById(id);
         return id + " numarali urun Moonİnventory stoklarindan basariyla silindi";
     }
+    @PutMapping("/{id}")
+    public Product updateProduct(@PathVariable int id, @RequestBody Product updatedProduct){
+        return productRepository.findById(id).map(existingProduct ->{
+            existingProduct.setName(updatedProduct.getName());
+            existingProduct.setCategory(updatedProduct.getCategory());
+            existingProduct.setPrice(updatedProduct.getPrice());
+            existingProduct.setStockQuantity(updatedProduct.getStockQuantity());
+            return productRepository.save(existingProduct);
+        }).orElse(null);
+    }
 }
