@@ -1,20 +1,27 @@
 package com.bilal.pc_inventory.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name= "products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+   @NotBlank(message = "Urun adi bos olamaz!")
     private String name;
+
     @Column (nullable = false)
     private String category;
+
+    @Min(value= 0, message ="Fiyat 0'dan kucuk olamaz!")
     private double price;
+
+    @Min(value = 0, message = "Stok adedi eksiye dusemez!")
     private int stockQuantity;
 
     public Product(){

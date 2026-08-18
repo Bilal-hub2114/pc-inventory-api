@@ -2,6 +2,7 @@ package com.bilal.pc_inventory.controller;
 
 import com.bilal.pc_inventory.entity.Product;
 import com.bilal.pc_inventory.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public Product addProduct(@RequestBody Product product) {
+    public Product addProduct(@Valid @RequestBody Product product) {
         return productService.addProduct(product);
     }
 
@@ -32,7 +33,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable int id, @RequestBody Product product) {
+    public Product updateProduct(@Valid @PathVariable int id, @RequestBody Product product) {
         return productService.updateProduct(id, product);
     }
 
