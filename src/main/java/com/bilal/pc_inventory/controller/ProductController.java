@@ -22,6 +22,10 @@ public class ProductController {
         return productService.addProduct(product);
     }
 
+    @GetMapping("/category/{categoryName}")
+    public List<Product> getProductsByCategory(@PathVariable String categoryName){
+        return productService.getProductsByCategory(categoryName);
+    }
     @GetMapping
     public List<Product> getAllProducts() {
         return productService.getAllProducts();

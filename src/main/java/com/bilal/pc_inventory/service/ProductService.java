@@ -15,8 +15,12 @@ public class ProductService {
     public Product addProduct(Product product){
         return productRepository.save(product);
     }
+
     public List<Product> getAllProducts(){
         return productRepository.findAll();
+    }
+    public List<Product> getProductsByCategory(String category){
+        return productRepository.findByCategory(category);
     }
     public Product getProductById(int id){
         return productRepository.findById(id).orElse(null);
